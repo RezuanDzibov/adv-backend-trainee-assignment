@@ -17,6 +17,8 @@ flake8-comprehensions = "^3.8.0"
 flake8-alphabetize = "^0.0.17"
 flake8-cognitive-complexity = "^0.1.0"
 flake8-annotations = "^2.7.0"
+Django = "^4.0.3"
+django-rest-framework = "^0.1.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
