@@ -1,6 +1,6 @@
 from rest_framework import generics, filters, response, status
 
-from ad_wall.models import Ad
+from ad_wall.models import Ad, Image
 from ad_wall import serializers
 
 
@@ -21,11 +21,17 @@ class AdRetrieveView(generics.RetrieveAPIView):
 
 
 class AdCreateView(generics.CreateAPIView):
-    serializer_class = serializers.AdCreateSerializer
+    serializer_class = serializers.AdCreateSerializerWithImages
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
+        images = serializer.data.get("images", None)
+        serializer = serializers.AdCreateSerializer(data=serializer.data)
+        serializer.is_valid(raise_exception=True)
         instance = Ad.objects.create(**serializer.data)
+        if not images:
+            for image in images:
+                Image.objects.create(ad=instance, url=image)
         headers = self.get_success_headers(serializer.data)
         return response.Response(instance.id, status=status.HTTP_201_CREATED, headers=headers)
