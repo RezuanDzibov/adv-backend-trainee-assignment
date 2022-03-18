@@ -35,7 +35,7 @@ class AdRetrieveSerializer(serializers.ModelSerializer):
         )
 
 
-class AdCreateSerializer(serializers.ModelSerializer):
+class AdCreateSerializerWithImages(serializers.ModelSerializer):
     images = serializers.ListField(child=serializers.URLField())
 
     class Meta:
@@ -46,4 +46,15 @@ class AdCreateSerializer(serializers.ModelSerializer):
             "price",
             "primary_image_url",
             "images",
+        )
+
+
+class AdCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ad
+        fields = (
+            "name",
+            "description",
+            "price",
+            "primary_image_url",
         )
