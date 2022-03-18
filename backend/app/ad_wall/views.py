@@ -21,7 +21,8 @@ class AdRetrieveView(generics.RetrieveAPIView):
     queryset = Ad.objects.all()
 
     def get_serializer_class(self):
-        if self.request.GET.get("fields").lower() in ("true", "1"):
+        is_fields = self.request.GET.get("fields", None)  #TODO:Add is_fields paramter to swagger schema
+        if is_fields and is_fields.lower() in ("true", "1"):
             return serializers.AdRetrieveSerializer
         return serializers.AdListSerializer
 
