@@ -5,6 +5,9 @@ from ad_wall import serializers
 
 
 class AdListView(generics.ListAPIView):
+    """
+    Retrieve list of ads.
+    """
     queryset = Ad.objects.all()
     serializer_class = serializers.AdListSerializer
     filter_backends = [filters.OrderingFilter]
@@ -12,6 +15,9 @@ class AdListView(generics.ListAPIView):
 
 
 class AdRetrieveView(generics.RetrieveAPIView):
+    """
+    Retrieve an ad by id.
+    """
     queryset = Ad.objects.all()
 
     def get_serializer_class(self):
@@ -24,6 +30,12 @@ class AdCreateView(generics.CreateAPIView):
     serializer_class = serializers.AdCreateSerializerWithImages
 
     def post(self, request, *args, **kwargs):
+        """
+        Create a new ad with the given images
+        
+        :param request: The request that was sent to the API view
+        :return: The id of the newly created ad.
+        """
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         images = serializer.data.get("images", None)
