@@ -37,7 +37,7 @@ DATABASE
 ```
 docker-compose up --build
 ```
-## And now the project should be up and running. If there will be errors connecting to the database (that the database on port 5432 is not found), this is how it works. 
+## And now the project should be up and running.
 <br>
 
 # Thank you for your attention.
